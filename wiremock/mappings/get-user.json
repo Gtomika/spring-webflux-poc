@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/api/v3/users/([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})",
+    "headers": {
+      "User-Agent": {
+        "matches": ".*"
+      },
+      "Authorization": {
+        "equalTo": "Bearer abcdefghijklmnop"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "fixedDelayMilliseconds": 2000,
+    "bodyFileName": "user-response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": ["response-template"]
+  }
+}

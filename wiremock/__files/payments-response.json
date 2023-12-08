@@ -1,0 +1,23 @@
+[
+  {
+    "amount": 430,
+    "currency": "EUR",
+    "paymentType": "CARD",
+    "successfulPayment": true,
+    "timestamp": "2022-01-01T13:56:39.492"
+  },
+  {
+    "amount": 230,
+    "currency": "USD",
+    "paymentType": "CARD",
+    "successfulPayment": false,
+    "timestamp": "2022-11-03T13:56:39.492"
+  },
+  {
+    "amount": 230,
+    "currency": "USD",
+    "paymentType": "CASH",
+    "successfulPayment": true,
+    "timestamp": "2022-11-03T13:56:39.492"
+  }
+]
