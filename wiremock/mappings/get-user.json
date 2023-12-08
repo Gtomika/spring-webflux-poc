@@ -13,7 +13,7 @@
   },
   "response": {
     "status": 200,
-    "fixedDelayMilliseconds": 2000,
+    "fixedDelayMilliseconds": 3000,
     "bodyFileName": "user-response.json",
     "headers": {
       "Content-Type": "application/json"

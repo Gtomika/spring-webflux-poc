@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "51b7ea72-962b-4c9c-bcfb-c2e1daaf40e0",
+		"name": "Webflux PoC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31123584"
+	},
+	"item": [
+		{
+			"name": "Wiremock External API",
+			"item": [
+				{
+					"name": "User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "Postman",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{externalApiUrl}}/api/v3/users/{{userId}}",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "Postman",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{externalApiUrl}}/api/v3/users/{{userId}}/reservations",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"users",
+								"{{userId}}",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "Postman",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{externalApiUrl}}/api/v3/users/{{userId}}/payments",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"users",
+								"{{userId}}",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "abcdefghijklmnop",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Aggregation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/api/v1/aggregation/{{userId}}",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"aggregation",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "externalApiUrl",
+			"value": "localhost:9001",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "63b3b308-f5d4-4e44-9ff4-713667dd20ef",
+			"type": "string"
+		},
+		{
+			"key": "apiUrl",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
