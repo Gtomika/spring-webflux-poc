@@ -1,5 +1,5 @@
 {
-  "priority": 1,
+  "priority": 2,
   "request": {
     "method": "GET",
     "urlPathPattern": "/api/v3/users/([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/payments",
@@ -13,9 +13,9 @@
     }
   },
   "response": {
-    "status": 200,
+    "status": 403,
     "fixedDelayMilliseconds": 3000,
-    "bodyFileName": "payments-response.json",
+    "bodyFileName": "payments-error-response.json",
     "headers": {
       "Content-Type": "application/json"
     }

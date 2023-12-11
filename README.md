@@ -17,6 +17,31 @@ This diagram illustrates how the application works.
 An artificial delay is added to WireMock responses, so that the effectiveness of caching can be seen. Dummy 
 authentication is used in the form of a bearer token, which WireMock checks.
 
+# Aggregation and error handling
+
+If one of the external API requests returns an error, or times out, this value 
+will be replaced by *null* in the aggregated response.
+
+For example, if user API and reservations API are successful, but payment API times 
+out, we will see a result like this:
+
+```json
+{
+  "user": {
+    "userId": "8b9c71dc-3706-41f5-884d-370a428acac6",
+    "name": "Some User",
+    ...
+  },
+  "reservations": [
+    ...
+  ],
+  "payments": null
+}
+```
+
+It is also possible to configure a "fail-early" approach, where, if one of the 
+external APIs fail, the entire aggregation is failed.
+
 # Effects of caching and parallelism
 
 This table shows the response times from the app:
