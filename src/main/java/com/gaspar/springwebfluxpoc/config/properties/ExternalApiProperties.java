@@ -7,7 +7,7 @@ public record ExternalApiProperties(
         String url,
         String userAgent,
         String apiKey,
-        int timeoutMillis,
+        Integer timeoutMillis,
         String userPath,
         String reservationsPath,
         String paymentHistoryPath

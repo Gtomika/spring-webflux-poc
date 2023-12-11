@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "cache.redis")
 public record RedisProperties(
         String host,
-        int port,
+        Integer port,
         String password,
-        int ttlMinutes
+        Integer ttlMinutes
 ) {}
