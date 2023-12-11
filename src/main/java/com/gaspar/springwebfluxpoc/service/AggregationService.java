@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,15 +24,23 @@ public class AggregationService {
 
     @Cacheable(cacheNames = "aggregated-user-data")
     public AggregatedResponse aggregateUserData(UUID userId) {
-        var userMono = fetchUser(userId);
-        var reservationsMono = fetchReservations(userId);
-        var paymentsMono = fetchPayments(userId);
+        var userMono = fetchUser(userId)
+                .map(Optional::of)
+                .onErrorResume(exception -> Mono.just(Optional.empty()));
+
+        var reservationsMono = fetchReservations(userId)
+                .map(Optional::of)
+                .onErrorResume(exception -> Mono.just(Optional.empty()));
+
+        var paymentsMono = fetchPayments(userId)
+                .map(Optional::of)
+                .onErrorResume(exception -> Mono.just(Optional.empty()));
 
         return Mono.zip(userMono, reservationsMono, paymentsMono)
                 .flatMap(tuple -> {
-                    UserResponse user = tuple.getT1();
-                    List<ReservationResponse> reservations = tuple.getT2();
-                    List<PaymentResponse> payments = tuple.getT3();
+                    UserResponse user = tuple.getT1().orElse(null);
+                    List<ReservationResponse> reservations = tuple.getT2().orElse(null);
+                    List<PaymentResponse> payments = tuple.getT3().orElse(null);
                     AggregatedResponse aggregatedResponse = new AggregatedResponse(user, reservations, payments);
                     return Mono.just(aggregatedResponse);
                 })

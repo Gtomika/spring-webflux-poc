@@ -2,7 +2,6 @@ package com.gaspar.springwebfluxpoc.config;
 
 import com.gaspar.springwebfluxpoc.config.properties.ExternalApiProperties;
 import com.gaspar.springwebfluxpoc.exception.ExternalApiException;
-import io.netty.channel.ChannelOption;
 import io.netty.handler.logging.LogLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +16,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.transport.logging.AdvancedByteBufFormat;
+
+import java.time.Duration;
 
 @Slf4j
 @Configuration
@@ -42,11 +43,15 @@ public class ExternalApiConfig {
     private ReactorClientHttpConnector createHttpConnector() {
         HttpClient httpClient = HttpClient.create()
                 .wiretap("reactor.netty.http.client.HttpClient", LogLevel.DEBUG, AdvancedByteBufFormat.TEXTUAL)
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, externalApiProperties.timeoutMillis());
+                .responseTimeout(Duration.ofMillis(externalApiProperties.timeoutMillis()));
         return new ReactorClientHttpConnector(httpClient);
     }
 
     private Mono<? extends Throwable> defaultErrorHandler(ClientResponse errorResponse) {
+        log.error("External API failed. Path: '{}'. Status code: '{}'. Response body: '{}'",
+                errorResponse.request().getURI(),
+                errorResponse.statusCode(),
+                errorResponse.bodyToMono(String.class).block());
         ExternalApiException exception = new ExternalApiException(
             errorResponse.statusCode(), errorResponse.bodyToMono(String.class).block()
         );
