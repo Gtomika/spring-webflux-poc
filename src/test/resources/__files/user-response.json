@@ -1,0 +1,6 @@
+{
+  "userId": "{{request.path.[3]}}",
+  "name": "Test User",
+  "email": "test.user@gmail.com",
+  "birthday": "1985-02-13"
+}

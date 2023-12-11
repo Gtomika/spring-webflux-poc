@@ -1,0 +1,12 @@
+[
+  {
+    "hotelName": "Hilton",
+    "startDate": "2022-01-01",
+    "endDate": "2022-01-05"
+  },
+  {
+    "hotelName": "Novotel",
+    "startDate": "2022-11-03",
+    "endDate": "2022-11-13"
+  }
+]
