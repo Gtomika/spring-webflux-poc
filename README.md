@@ -29,11 +29,16 @@ out, we will see a result like this:
 {
   "user": {
     "userId": "8b9c71dc-3706-41f5-884d-370a428acac6",
-    "name": "Some User",
-    ...
+    "name": "Test User",
+    "email": "test.user@gmail.com",
+    "birthday": "1985-02-13"
   },
   "reservations": [
-    ...
+    {
+      "hotelName": "Hilton",
+      "startDate": "2022-01-01",
+      "endDate": "2022-01-05"
+    }
   ],
   "payments": null
 }
@@ -72,4 +77,10 @@ with the following Maven command:
 
 ```bash
 mvn spring-boot:run
+```
+
+To run the tests that launch the entire app and use WireMock:
+
+```bash
+mvn test
 ```
