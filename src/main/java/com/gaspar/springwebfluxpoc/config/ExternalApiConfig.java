@@ -48,14 +48,17 @@ public class ExternalApiConfig {
     }
 
     private Mono<? extends Throwable> defaultErrorHandler(ClientResponse errorResponse) {
-        log.error("External API failed. Path: '{}'. Status code: '{}'. Response body: '{}'",
-                errorResponse.request().getURI(),
-                errorResponse.statusCode(),
-                errorResponse.bodyToMono(String.class).block());
-        ExternalApiException exception = new ExternalApiException(
-            errorResponse.statusCode(), errorResponse.bodyToMono(String.class).block()
-        );
-        return Mono.error(exception);
+        return errorResponse.bodyToMono(String.class)
+                .doOnNext(errorResponseBody -> {
+                    log.error("External API failed. Path: '{}'. Status code: '{}'. Response body: '{}'",
+                            errorResponse.request().getURI(),
+                            errorResponse.statusCode(),
+                            errorResponseBody);
+                })
+                .flatMap(errorResponseBody -> {
+                    ExternalApiException exception = new ExternalApiException(errorResponse.statusCode(), errorResponseBody);
+                    return Mono.error(exception);
+                });
     }
 
 }
